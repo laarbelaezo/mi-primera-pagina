@@ -7,7 +7,10 @@ body {
     color: #333;
 }
 
-h2, h3 { color: #2c3e50; text-align: center; }
+h2, h3 { 
+    color: #2c3e50; 
+    text-align: center; 
+}
 
 .form-container {
     background: white;
@@ -17,32 +20,98 @@ h2, h3 { color: #2c3e50; text-align: center; }
     margin-bottom: 30px;
 }
 
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group { 
+    margin-bottom: 15px; 
+}
+
+.form-group label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: bold; 
+}
+
 .form-group input, .form-group select {
-    width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+    width: 100%; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box;
 }
 
 button {
-    width: 100%; padding: 10px; background-color: #27ae60; color: white;
-    border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.2s;
+    width: 100%; 
+    padding: 10px; 
+    background-color: #27ae60; 
+    color: white;
+    border: none; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.2s;
 }
-button:hover { background-color: #219150; }
+
+button:hover { 
+    background-color: #219150; 
+}
+
+/* CONTENEDOR FLUIDO RESPONSIVO PARA PANTALLAS MÓVILES */
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-top: 15px;
+    -webkit-overflow-scrolling: touch; /* Suaviza el desplazamiento táctil en iOS */
+}
 
 table {
-    width: 100%; border-collapse: collapse; background: white;
-    border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white;
+    min-width: 550px; /* Impide el colapso destructivo de las columnas en celulares */
 }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-th { background-color: #2980b9; color: white; }
-tr:hover { background-color: #f1f2f6; }
 
-/* Estilos específicos para los botones de la tabla */
-.btn-accion {
-    padding: 5px 10px; margin-right: 5px; border: none; border-radius: 3px;
-    color: white; font-size: 12px; cursor: pointer; width: auto; display: inline-block;
+th, td { 
+    padding: 12px; 
+    text-align: left; 
+    border-bottom: 1px solid #ddd; 
 }
-.btn-editar { background-color: #2980b9; }
-.btn-editar:hover { background-color: #1f618d; }
-.btn-eliminar { background-color: #e74c3c; }
-.btn-eliminar:hover { background-color: #c0392b; }
+
+th { 
+    background-color: #2980b9; 
+    color: white; 
+}
+
+tr:hover { 
+    background-color: #f1f2f6; 
+}
+
+/* BOTONES DE ACCIÓN CRUD INTERNOS EN LA TABLA */
+.btn-accion {
+    padding: 6px 12px; 
+    margin-right: 5px; 
+    border: none; 
+    border-radius: 4px;
+    color: white; 
+    font-size: 13px; 
+    cursor: pointer; 
+    width: auto; 
+    display: inline-block;
+}
+
+.btn-editar { 
+    background-color: #2980b9; 
+}
+
+.btn-editar:hover { 
+    background-color: #1f618d; 
+}
+
+.btn-eliminar { 
+    background-color: #e74c3c; 
+}
+
+.btn-eliminar:hover { 
+    background-color: #c0392b; 
+}
