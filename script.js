@@ -1,5 +1,7 @@
+// URL unificada de producción en la nube
 const API_URL = "https://leonardoarbelaez.pythonanywhere.com";
 
+// Enlaces a los componentes de la interfaz de usuario
 const tbody = document.getElementById("tabla-usuarios");
 const botonGuardar = document.getElementById("btn-guardar");
 const botonCancelar = document.getElementById("btn-cancelar");
@@ -10,9 +12,9 @@ const nombreInput = document.getElementById("nombre");
 const edadInput = document.getElementById("edad");
 const sexoInput = document.getElementById("sexo");
 
-// 1. LEER Y DIBUJAR LA TABLA CON LOS BOTONES DE ACCIÓN
+// 1. RENDERIZAR FILAS EN LA TABLA CON COMPORTAMIENTO DINÁMICO
 function actualizarTabla(usuarios) {
-    tbody.innerHTML = "";
+    tbody.innerHTML = ""; // Evitamos redundancia de datos limpiando el contenedor
 
     usuarios.forEach(usuario => {
         const fila = document.createElement("tr");
@@ -29,20 +31,21 @@ function actualizarTabla(usuarios) {
     });
 }
 
+// 2. PETICIÓN GET: CARGAR HISTORIAL AL ARRANCAR EL SITIO
 async function cargarUsuarios() {
     try {
         const respuesta = await fetch(`${API_URL}/usuarios`);
         const datos = await respuesta.json();
         actualizarTabla(datos);
     } catch (error) {
-        console.error("Error al cargar datos:", error);
+        console.error("Error al conectar con la base de datos remota:", error);
     }
 }
 
-// 2. CREATE / UPDATE: GUARDAR (SABER SI ES NUEVO O EDICIÓN)
+// 3. PETICIÓN POST / PUT: ROUTING DE ACCIÓN AL GUARDAR FORMULARIO
 async function procesarFormulario() {
     if (!nombreInput.value || !edadInput.value) {
-        alert("Campos Nombre y Edad obligatorios.");
+        alert("Por favor, introduce el nombre y la edad.");
         return;
     }
 
@@ -56,7 +59,7 @@ async function procesarFormulario() {
     let url = `${API_URL}/guardar`;
     let metodo = 'POST';
 
-    // Si el campo invisible tiene un ID, significa que estamos EDITANDO
+    // Si el input oculto contiene un ID, conmutamos a modo de edición (UPDATE)
     if (idExistente) {
         url = `${API_URL}/editar/${idExistente}`;
         metodo = 'PUT';
@@ -76,13 +79,13 @@ async function procesarFormulario() {
             resetearFormulario();
         }
     } catch (error) {
-        console.error("Error al procesar formulario:", error);
+        console.error("Error en la transacción del formulario:", error);
     }
 }
 
-// 3. DELETE: ELIMINAR REGISTRO DE LA NUBE
+// 4. PETICIÓN DELETE: SOLICITAR ELIMINACIÓN POR ID ÚNICO
 async function eliminarUsuario(id) {
-    if (!confirm("¿Seguro que deseas eliminar este registro?")) return;
+    if (!confirm("¿Estás completamente seguro de que deseas eliminar este registro?")) return;
 
     try {
         const respuesta = await fetch(`${API_URL}/eliminar/${id}`, {
@@ -91,14 +94,14 @@ async function eliminarUsuario(id) {
         const resultado = await respuesta.json();
         if (resultado.status === "success") {
             actualizarTabla(resultado.data);
-            resetearFormulario(); // Por si acaso borrarn mientras editaban
+            resetearFormulario(); // Devuelve el formulario a la normalidad si se estaba editando
         }
     } catch (error) {
-        console.error("Error al eliminar:", error);
+        console.error("Error al procesar la baja del usuario:", error);
     }
 }
 
-// 4. FUNCIONES AUXILIARES DE INTERFAZ
+// 5. MANIPULADORES ESTÁTICOS DEL ESTADO VISUAL
 function prepararEdicion(id, nombre, edad, sexo) {
     idInput.value = id;
     nombreInput.value = nombre;
@@ -123,6 +126,7 @@ function resetearFormulario() {
     botonCancelar.style.display = "none";
 }
 
+// Escuchadores de eventos controladores de acciones
 botonGuardar.addEventListener('click', procesarFormulario);
 botonCancelar.addEventListener('click', resetearFormulario);
 window.addEventListener('DOMContentLoaded', cargarUsuarios);
