@@ -1,34 +1,75 @@
-// La URL base de tu servidor en PythonAnywhere
+// Tu URL real de producción en PythonAnywhere
 const API_URL = "https://leonardoarbelaez.pythonanywhere.com";
 
-const contadorElemento = document.getElementById('contador');
-const botonIncrementar = document.getElementById('btn-incrementar');
+// Selección de elementos de la interfaz
+const tbody = document.getElementById("tabla-usuarios");
+const botonGuardar = document.getElementById("btn-guardar");
+const nombreInput = document.getElementById("nombre");
+const edadInput = document.getElementById("edad");
+const sexoInput = document.getElementById("sexo");
 
-// Función para obtener los clics globales desde Python al cargar la página
-async function cargarClicsGlobales() {
+// 1. FUNCIÓN PARA DIBUJAR LAS FILAS EN LA TABLA HTML
+function actualizarTabla(usuarios) {
+    tbody.innerHTML = ""; // Limpia la tabla para evitar duplicaciones
+
+    usuarios.forEach(usuario => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${usuario.nombre}</td>
+            <td>${usuario.edad}</td>
+            <td>${usuario.sexo}</td>
+        `;
+        tbody.appendChild(fila);
+    });
+}
+
+// 2. PEDIR LA LISTA COMPLETA AL SERVIDOR AL ABRIR LA PÁGINA
+async function cargarUsuarios() {
     try {
-        const respuesta = await fetch(`${API_URL}/obtener-clics`);
+        const respuesta = await fetch(`${API_URL}/usuarios`);
         const datos = await respuesta.json();
-        contadorElemento.textContent = datos.clics;
+        actualizarTabla(datos);
     } catch (error) {
-        console.error("Error al obtener datos del servidor:", error);
+        console.error("Error al cargar los usuarios de la nube:", error);
     }
 }
 
-// Escuchamos el clic del botón e informamos al servidor en la nube
-botonIncrementar.addEventListener('click', async () => {
-    try {
-        // Hacemos una petición POST para decirle a Python que sume 1
-        const respuesta = await fetch(`${API_URL}/sumar-clic`, {
-            method: 'POST'
-        });
-        const datos = await respuesta.json();
-        // Actualizamos la pantalla con el total real de la base de datos
-        contadorElemento.textContent = datos.clics;
-    } catch (error) {
-        console.error("Error al registrar el clic en la nube:", error);
+// 3. ENVIAR LOS NUEVOS DATOS AL SERVIDOR AL DAR CLIC
+async function registrarUsuario() {
+    if (!nombreInput.value || !edadInput.value) {
+        alert("Por favor, ingresa Nombre y Edad.");
+        return;
     }
-});
 
-// Ejecutamos la carga inicial apenas se abra la página
-cargarClicsGlobales();
+    // Estructura del objeto que viajará hacia Python
+    const paqueteUsuario = {
+        nombre: nombreInput.value,
+        edad: parseInt(edadInput.value),
+        sexo: sexoInput.value
+    };
+
+    try {
+        const respuesta = await fetch(`${API_URL}/guardar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(paqueteUsuario) // Serialización a cadena JSON
+        });
+        
+        const resultado = await respuesta.json();
+        
+        if (resultado.status === "success") {
+            actualizarTabla(resultado.data); // Redibuja con el nuevo registro
+            
+            // Limpia los controles para una nueva inserción
+            nombreInput.value = "";
+            edadInput.value = "";
+        }
+    } catch (error) {
+        console.error("Error al guardar:", error);
+        alert("Hubo un problema de conexión con el servidor backend.");
+    }
+}
+
+// Vinculación de eventos controladores
+botonGuardar.addEventListener('click', registrarUsuario);
+window.addEventListener('DOMContentLoaded', cargarUsuarios);
