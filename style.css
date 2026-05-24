@@ -1,117 +1,81 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 700px;
-    margin: 40px auto;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #eef2f3;
+    margin: 0;
     padding: 20px;
-    background-color: #f4f7f6;
     color: #333;
 }
 
-h2, h3 { 
-    color: #2c3e50; 
-    text-align: center; 
-}
+.container { max-width: 600px; margin: 0 auto; }
+.container.wide { max-width: 1000px; }
+
+header { text-align: center; margin-bottom: 30px; }
+h1 { color: #2c3e50; }
 
 .form-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
-.form-group { 
-    margin-bottom: 15px; 
-}
+.form-container.small { max-width: 400px; margin: 50px auto; }
 
-.form-group label { 
-    display: block; 
-    margin-bottom: 5px; 
-    font-weight: bold; 
-}
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9em; }
 
-.form-group input, .form-group select {
-    width: 100%; 
-    padding: 8px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
 button {
-    width: 100%; 
-    padding: 10px; 
-    background-color: #27ae60; 
-    color: white;
-    border: none; 
-    border-radius: 4px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    transition: background-color 0.2s;
-}
-
-button:hover { 
-    background-color: #219150; 
-}
-
-/* CONTENEDOR FLUIDO RESPONSIVO PARA PANTALLAS MÓVILES */
-.tabla-contenedor {
     width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { background-color: #219150; }
+
+.tabla-contenedor {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
     overflow-x: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-top: 15px;
-    -webkit-overflow-scrolling: touch; /* Suaviza el desplazamiento táctil en iOS */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-table {
-    width: 100%; 
-    border-collapse: collapse; 
-    background: white;
-    min-width: 550px; /* Impide el colapso destructivo de las columnas en celulares */
-}
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+th { background-color: #34495e; color: white; }
 
-th, td { 
-    padding: 12px; 
-    text-align: left; 
-    border-bottom: 1px solid #ddd; 
-}
+.btn-accion { padding: 5px 10px; font-size: 12px; width: auto; margin-right: 5px; }
+.btn-edit { background-color: #3498db; }
+.btn-del { background-color: #e74c3c; }
+.btn-rojo { background-color: #c0392b; width: auto; padding: 8px 15px; }
 
-th { 
-    background-color: #2980b9; 
-    color: white; 
-}
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.admin-link { color: #7f8c8d; text-decoration: none; font-size: 0.8em; }
+.admin-link:hover { text-decoration: underline; }
 
-tr:hover { 
-    background-color: #f1f2f6; 
-}
-
-/* BOTONES DE ACCIÓN CRUD INTERNOS EN LA TABLA */
-.btn-accion {
-    padding: 6px 12px; 
-    margin-right: 5px; 
-    border: none; 
-    border-radius: 4px;
-    color: white; 
-    font-size: 13px; 
-    cursor: pointer; 
-    width: auto; 
-    display: inline-block;
-}
-
-.btn-editar { 
-    background-color: #2980b9; 
-}
-
-.btn-editar:hover { 
-    background-color: #1f618d; 
-}
-
-.btn-eliminar { 
-    background-color: #e74c3c; 
-}
-
-.btn-eliminar:hover { 
-    background-color: #c0392b; 
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
 }
