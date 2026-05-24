@@ -1,5 +1,14 @@
 const API_URL = "https://leonardoarbelaez.pythonanywhere.com";
 
+// Función auxiliar para construir las cabeceras con el Token de Seguridad
+function getAuthHeaders() {
+    const token = sessionStorage.getItem("admin_token");
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Aquí adjuntamos el pase VIP
+    };
+}
+
 // 1. LOGIN
 async function login() {
     const user = document.getElementById("admin-user").value;
@@ -12,7 +21,11 @@ async function login() {
             body: JSON.stringify({user, pass})
         });
         const data = await res.json();
+        
         if(data.status === "success") {
+            // ¡La bóveda se abrió! Guardamos el token en la memoria temporal
+            sessionStorage.setItem("admin_token", data.token);
+            
             document.getElementById("login-section").style.display = "none";
             document.getElementById("dashboard-section").style.display = "block";
             cargarUsuarios();
@@ -24,7 +37,13 @@ async function login() {
 
 // 2. CARGAR DATOS
 async function cargarUsuarios() {
-    const res = await fetch(`${API_URL}/admin/usuarios`);
+    const res = await fetch(`${API_URL}/admin/usuarios`, {
+        method: 'GET',
+        headers: getAuthHeaders() // Inyección del token
+    });
+    
+    if(res.status === 401) { alert("Sesión inválida o expirada"); cerrarSesion(); return; }
+    
     const usuarios = await res.json();
     const tabla = document.getElementById("tabla-admin");
     tabla.innerHTML = "";
@@ -47,8 +66,10 @@ async function cargarUsuarios() {
 // 3. ELIMINAR
 async function eliminar(id) {
     if(!confirm("¿Borrar permanentemente?")) return;
-    const res = await fetch(`${API_URL}/admin/eliminar/${id}`, { method: 'DELETE' });
-    const data = await res.json();
+    await fetch(`${API_URL}/admin/eliminar/${id}`, { 
+        method: 'DELETE',
+        headers: getAuthHeaders() // Inyección del token
+    });
     cargarUsuarios();
 }
 
@@ -73,7 +94,7 @@ document.getElementById("btn-actualizar").addEventListener("click", async () => 
     };
     await fetch(`${API_URL}/admin/editar/${id}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: getAuthHeaders(), // Inyección del token
         body: JSON.stringify(datos)
     });
     cargarUsuarios();
@@ -90,11 +111,15 @@ async function cambiarCredenciales() {
     };
     const res = await fetch(`${API_URL}/admin/cambiar-credenciales`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: getAuthHeaders(), // Inyección del token
         body: JSON.stringify(datos)
     });
     const data = await res.json();
     alert(data.message);
 }
 
-function cerrarSesion() { location.reload(); }
+// 6. CERRAR SESIÓN SEGURA
+function cerrarSesion() { 
+    sessionStorage.removeItem("admin_token"); // Destruye el token
+    location.reload(); 
+}
