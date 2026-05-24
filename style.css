@@ -1,57 +1,79 @@
-/* Estilos globales */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f4f7f6;
+    color: #333;
 }
 
-/* Contenedor principal */
-.contenedor {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
+h2, h3 { 
+    color: #2c3e50; 
+    text-align: center; 
 }
 
-h1 {
-    color: #24292e;
-    font-size: 24px;
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
 }
 
-p {
-    color: #586069;
+.form-group {
+    margin-bottom: 15px;
 }
 
-/* Caja del contador */
-.contador-box {
-    margin-top: 20px;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-#contador {
-    font-size: 48px;
-    color: #0366d6;
-    margin: 10px 0;
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/* Botón interactivo */
 button {
-    background-color: #2ea44f;
+    width: 100%;
+    padding: 10px;
+    background-color: #27ae60;
     color: white;
     border: none;
-    padding: 12px 24px;
+    border-radius: 4px;
     font-size: 16px;
-    font-weight: bold;
-    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-button:hover {
-    background-color: #2c974b;
+button:hover { 
+    background-color: #219150; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th { 
+    background-color: #2980b9; 
+    color: white; 
+}
+
+tr:hover { 
+    background-color: #f1f2f6; 
 }
