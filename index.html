@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Acumulativo de Usuarios</title>
+    <title>Sistemas CRUD Completo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h2>Formulario de Registro</h2>
+    <h2 id="titulo-formulario">Formulario de Registro</h2>
     
     <div class="form-container">
+        <input type="hidden" id="usuario-id">
+
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" placeholder="Escribe el nombre aquí">
@@ -31,6 +33,7 @@
         </div>
         
         <button id="btn-guardar">Guardar Datos</button>
+        <button id="btn-cancelar" style="display: none; background-color: #7f8c8d; margin-top: 8px;">Cancelar Edición</button>
     </div>
 
     <h3>Usuarios Registrados</h3>
@@ -40,6 +43,7 @@
                 <th>Nombre</th>
                 <th>Edad</th>
                 <th>Sexo</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody id="tabla-usuarios">
