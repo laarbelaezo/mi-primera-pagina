@@ -3,20 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Primera Página en GitHub</title>
+    <title>Registro Acumulativo de Usuarios</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="contenedor">
-        <h1>¡Hola desde GitHub Pages!</h1>
-        <p>Esta es mi primera página web de prueba.</p>
-        
-        <div class="contador-box">
-            <h2 id="contador">0</h2>
-            <button id="btn-incrementar">¡Hazme clic!</button>
+    <h2>Formulario de Registro</h2>
+    
+    <div class="form-container">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Escribe el nombre aquí">
         </div>
+        
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" placeholder="Ej. 25">
+        </div>
+        
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <select id="sexo">
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro / Prefiero no decirlo</option>
+            </select>
+        </div>
+        
+        <button id="btn-guardar">Guardar Datos</button>
     </div>
+
+    <h3>Usuarios Registrados</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+            </tbody>
+    </table>
 
     <script src="script.js"></script>
 </body>
