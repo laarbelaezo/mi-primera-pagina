@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas CRUD Completo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <h2 id="titulo-formulario">Formulario de Registro</h2>
-    
-    <div class="form-container">
-        <input type="hidden" id="usuario-id">
-
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" placeholder="Escribe el nombre aquí">
-        </div>
-        
-        <div class="form-group">
-            <label for="edad">Edad:</label>
-            <input type="number" id="edad" placeholder="Ej. 25">
-        </div>
-        
-        <div class="form-group">
-            <label for="sexo">Sexo:</label>
-            <select id="sexo">
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro / Prefiero no decirlo</option>
-            </select>
-        </div>
-        
-        <button id="btn-guardar">Guardar Datos</button>
-        <button id="btn-cancelar" style="display: none; background-color: #7f8c8d; margin-top: 8px;">Cancelar Edición</button>
-    </div>
-
-    <h3>Usuarios Registrados</h3>
+<h3>Usuarios Registrados</h3>
+<div class="tabla-contenedor">
     <table>
         <thead>
             <tr>
@@ -49,7 +12,4 @@
         <tbody id="tabla-usuarios">
             </tbody>
     </table>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
