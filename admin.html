@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container wide">
+        <section id="login-section" class="form-container small">
+            <h2>Acceso Restringido</h2>
+            <div class="form-group">
+                <label>Usuario:</label>
+                <input type="text" id="admin-user" placeholder="Usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña:</label>
+                <input type="password" id="admin-pass" placeholder="••••••••">
+            </div>
+            <button onclick="login()">Ingresar al Sistema</button>
+            <p style="text-align:center; margin-top:15px;"><a href="index.html">Volver al Inicio</a></p>
+        </section>
+
+        <section id="dashboard-section" style="display:none;">
+            <header class="dash-header">
+                <h2>Panel de Gestión</h2>
+                <button onclick="cerrarSesion()" class="btn-rojo">Cerrar Sesión</button>
+            </header>
+
+            <div class="form-container" id="editor-admin">
+                <input type="hidden" id="edit-id">
+                <h3>Editor de Registros</h3>
+                <div class="form-grid">
+                    <input type="text" id="edit-nombre" placeholder="Nombre">
+                    <input type="number" id="edit-edad" placeholder="Edad">
+                    <select id="edit-sexo">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <select id="edit-tipo-id">
+                        <option value="TI">TI</option>
+                        <option value="CC">CC</option>
+                        <option value="CE">CE</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                    </select>
+                    <input type="text" id="edit-numero-id" placeholder="ID">
+                    <button id="btn-actualizar">Actualizar</button>
+                </div>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Sexo</th>
+                            <th>Identificación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-admin"></tbody>
+                </table>
+            </div>
+
+            <hr>
+            <div class="form-container config">
+                <h3>Seguridad: Cambiar Credenciales</h3>
+                <div class="form-grid">
+                    <input type="text" id="old-user" placeholder="Usuario Anterior">
+                    <input type="password" id="old-pass" placeholder="Clave Anterior">
+                    <input type="text" id="new-user" placeholder="Nuevo Usuario">
+                    <input type="password" id="new-pass" placeholder="Nueva Clave">
+                </div>
+                <button onclick="cambiarCredenciales()" style="background-color: #f39c12; margin-top:10px;">Aplicar Nuevas Credenciales</button>
+            </div>
+        </section>
+    </div>
+    <script src="admin_script.js"></script>
+</body>
+</html>
